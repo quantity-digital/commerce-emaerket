@@ -1,0 +1,37 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.selectField({
+	first: true,
+	label: 'Order completed status'|t('commerce-quickpay'),
+	instructions: 'What status indicates that a order has been shipped/completed. Will mark order as closed in Emærket.'|t('commerce-emaerket'),
+	id: 'completedStatus',
+	name: 'completedStatus',
+	options : statusOptions,
+	value : settings.completedStatus,
+	errors: settings.getErrors('completedStatus') ?? null,
+	required: true,
+}) }}
+
+{{ forms.selectField({
+	first: true,
+	label: 'Order refunded status'|t('commerce-quickpay'),
+	instructions: 'What status indicates a order has been refunded'|t('commerce-emaerket'),
+	id: 'refundedStatus',
+	name: 'refundedStatus',
+	options : statusOptions,
+	value : settings.refundedStatus,
+	errors: settings.getErrors('refundedStatus') ?? null,
+	required: true,
+}) }}
+
+{{ forms.selectField({
+	first: true,
+	label: 'Order cancelled status'|t('commerce-quickpay'),
+	instructions: 'What status indicates a order has been cancelled'|t('commerce-emaerket'),
+	id: 'cancelledStatus',
+	name: 'cancelledStatus',
+	options : statusOptions,
+	value : settings.cancelledStatus,
+	errors: settings.getErrors('cancelledStatus') ?? null,
+	required: true,
+}) }}
