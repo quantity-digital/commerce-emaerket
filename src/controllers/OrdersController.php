@@ -110,7 +110,7 @@ class OrdersController extends BaseController
 				$data['shipping']['shipments'] = [
 					'courier' => $shippingMethod->Name,
 					'tracking' => '-',
-					'date' => $order->orderStatus->dateCreated->getTimestamp()
+					'date' => $order->histories[0]->dateCreated->getTimestamp()
 				];
 			}
 
