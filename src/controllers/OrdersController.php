@@ -44,6 +44,7 @@ class OrdersController extends BaseController
 
 		//Build orders array
 		$orders = [];
+
 		foreach ($ordersQuery as $key => $order) {
 			$shippingAddress = $order->shippingAddress;
 			$billingAddress = $order->billingAddress;
@@ -60,7 +61,9 @@ class OrdersController extends BaseController
 				];
 			}
 
-			$orders[] = [
+			$status = $this->getEmaerkerStatus($order);
+
+			$data = [
 				"order_number" => $order->reference,
 				"remote_id" => $order->id,
 				"date" => $order->dateCreated->getTimestamp(),
@@ -101,6 +104,17 @@ class OrdersController extends BaseController
 				],
 				"order_lines" => $lineItems
 			];
+
+			//If order status is closed (meaning it has been shipped), add shipment
+			if ($status === 'closed') {
+				$data['shipping']['shipments'] = [
+					'courier' => $shippingMethod->Name,
+					'tracking' => '-',
+					'date' => $order->orderStatus->dateCreated->getTimestamp()
+				];
+			}
+
+			$orders[] = $data;
 		}
 
 		$ordersArray = [
