@@ -2,7 +2,7 @@
 	"name": "quantity-digital/commerce-emaerket",
 	"description": "E-mærket integration for Craft Commerce 3",
 	"type": "craft-plugin",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"keywords": [
 		"craft",
 		"cms",
