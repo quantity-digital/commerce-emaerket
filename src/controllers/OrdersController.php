@@ -47,7 +47,7 @@ class OrdersController extends BaseController
 
 		foreach ($ordersQuery as $key => $order) {
 			$shippingAddress = $order->shippingAddress;
-			$billingAddress = $order->billingAddress;
+			$billingAddress = ($order->billingAddress) ? $order->billingAddress : $shippingAddress;
 			$shippingMethod = $order->shippingMethod;
 
 			//Create lineitems
@@ -75,26 +75,26 @@ class OrdersController extends BaseController
 				"company_note" => '',
 				"ip" => $order->lastIp,
 				"billing_address" => [
-					"first_name" => $billingAddress->firstName,
-					"last_name" => $billingAddress->lastName,
-					"address_1" => $billingAddress->address1,
-					"address_2" => $billingAddress->address2,
-					"zip_code" => $billingAddress->zipCode,
-					"city" => $billingAddress->city,
-					"state" => $billingAddress->state,
-					"country" => $billingAddress->country['name'],
-					"phone" => $billingAddress->phone
+					"first_name" => $billingAddress ? $billingAddress->firstName : '',
+					"last_name" => $billingAddress ? $billingAddress->lastName : '',
+					"address_1" => $billingAddress ? $billingAddress->address1 : '',
+					"address_2" => $billingAddress ? $billingAddress->address2 : '',
+					"zip_code" => $billingAddress ? $billingAddress->zipCode : '',
+					"city" => $billingAddress ? $billingAddress->city : '',
+					"state" => $billingAddress ? $billingAddress->state : '',
+					"country" => $billingAddress ? ($billingAddress->country ? $billingAddress->country['name'] : '') : '',
+					"phone" => $billingAddress ? $billingAddress->phone : ''
 				],
 				"shipping_address" => [
-					"first_name" => $shippingAddress->firstName,
-					"last_name" => $shippingAddress->lastName,
-					"address_1" => $shippingAddress->address1,
-					"address_2" => $shippingAddress->address2,
-					"zip_code" => $shippingAddress->zipCode,
-					"city" => $shippingAddress->city,
-					"state" => $shippingAddress->state,
-					"country" => $shippingAddress->country['name'],
-					"phone" => $shippingAddress->phone
+					"first_name" => $shippingAddress ? $shippingAddress->firstName : '',
+					"last_name" => $shippingAddress ? $shippingAddress->lastName : '',
+					"address_1" => $shippingAddress ? $shippingAddress->address1 : '',
+					"address_2" => $shippingAddress ? $shippingAddress->address2 : '',
+					"zip_code" => $shippingAddress ? $shippingAddress->zipCode : '',
+					"city" => $shippingAddress ? $shippingAddress->city : '',
+					"state" => $shippingAddress ? $shippingAddress->state : '',
+					"country" => $shippingAddress ? ($shippingAddress->country ? $shippingAddress->country['name'] : '') : '',
+					"phone" => $shippingAddress ? $shippingAddress->phone : ''
 				],
 				"payment" => $this->getPayment($order),
 				"shipping" => [
